@@ -25,10 +25,12 @@ public class DaikichiController {
 	public String tomorrow() {
 		return "Tomorrow, an opportunity will arise, so be sure to be open to new ideas!";
 	}
+	
 	@RequestMapping("/daikichi/travel/{city}")
 	public String showCity(@PathVariable("city") String city) {
 		return "Congratulations! You will soon travel to " + city + "!";
 	}
+	
 	@RequestMapping("/daikichi/lotto/{number}")
 	public String showLotto(@PathVariable ("number") int number) {
 		if(number % 2 == 0) {

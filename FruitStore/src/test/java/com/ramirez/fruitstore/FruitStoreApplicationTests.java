@@ -1,10 +1,10 @@
-package com.ramirez.daikichi;
+package com.ramirez.fruitstore;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DaikichiApplicationTests {
+class FruitStoreApplicationTests {
 
 	@Test
 	void contextLoads() {

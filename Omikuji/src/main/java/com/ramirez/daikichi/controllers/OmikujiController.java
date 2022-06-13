@@ -27,12 +27,6 @@ public class OmikujiController {
 			@RequestParam(value="nice") String nice,
 			HttpSession session
 			) {
-		session.setAttribute("number", number);
-		session.setAttribute("city", city);
-		session.setAttribute("name", name);
-		session.setAttribute("profession", profession);
-		session.setAttribute("thing", thing);
-		session.setAttribute("nice", nice);
 		boolean numberSize = true;
 		if(number < 5 || number > 25) {
 			numberSize = false;
@@ -40,6 +34,12 @@ public class OmikujiController {
 		if(numberSize == false) {
 			return "redirect:/";
 		}
+		session.setAttribute("number", number);
+		session.setAttribute("city", city);
+		session.setAttribute("name", name);
+		session.setAttribute("profession", profession);
+		session.setAttribute("thing", thing);
+		session.setAttribute("nice", nice);
 		return "redirect:/show";
 	}
 

@@ -1,4 +1,4 @@
-package com.ramirez.daikichi;
+package com.ramirez.omikuji;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -10,10 +10,10 @@
 <body>
 	<div style="text-align:center;">
 	<h1>Send and Omikuji!</h1>
-	<form action="post" action="/submit" class="form-horizontal">
-		<label>Pick a number from 1 to 10:</label>
+	<form method="POST" action="/submit" class="form-horizontal">
+		<label>Pick a number from 5 to 25:</label>
 		<div>
-		<input type="number" name="number"/>
+		<input type="number" name="number" value="0"/>
 		</div>
 		<label>Enter the name of any city:</label>
 		<div>

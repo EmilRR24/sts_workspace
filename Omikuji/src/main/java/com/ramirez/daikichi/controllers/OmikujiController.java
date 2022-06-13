@@ -34,7 +34,7 @@ public class OmikujiController {
 		session.setAttribute("thing", thing);
 		session.setAttribute("nice", nice);
 		boolean numberSize = true;
-		if(number < 0 || number > 10) {
+		if(number < 5 || number > 25) {
 			numberSize = false;
 		}
 		if(numberSize == false) {

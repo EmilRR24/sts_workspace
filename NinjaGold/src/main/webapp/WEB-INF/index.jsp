@@ -39,7 +39,7 @@
 		<form action="/quest" method="POST" style="border: solid black 2px;padding:1em;text-align:center;">
 			<h3>Quest</h3>
 			<h4>(earns/loses 0-50 gold)</h4>
-			<button>Find Gold!</button>
+			<button name="quest">Find Gold!</button>
 		</form>
 		</div>
 		<h3>Activities:</h3>

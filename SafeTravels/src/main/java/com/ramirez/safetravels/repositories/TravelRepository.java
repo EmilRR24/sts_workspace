@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ramirez.safetravels.models.Travel;
 
 @Repository
-public interface TravelRespository extends CrudRepository<Travel, Long> {
+public interface TravelRepository extends CrudRepository<Travel, Long> {
 	//Retrieve all travels
 	List<Travel> findAll();
 }

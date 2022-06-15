@@ -27,6 +27,29 @@
 			</tr>
 			</c:forEach>
 		</table>
+		<form:form action="/travels" method="POST" modelAttribute="travel">
+    <p>
+        <form:label path="expense">Expense Name:</form:label>
+        <form:errors path="expense"/>
+        <form:input path="expense"/>
+    </p>
+    <p>
+        <form:label path="description">Description:</form:label>
+        <form:errors path="description"/>
+        <form:textarea path="description"/>
+    </p>
+    <p>
+        <form:label path="vendor">Language:</form:label>
+        <form:errors path="vendor"/>
+        <form:input path="vendor"/>
+    </p>
+    <p>
+        <form:label path="amount">Amount:</form:label>
+        <form:errors path="amount"/>     
+        <form:input type="number" path="amount"/>
+    </p>    
+    <input type="submit" value="Submit"/>
+</form:form>    
 	</div>
 </body>
 </html>

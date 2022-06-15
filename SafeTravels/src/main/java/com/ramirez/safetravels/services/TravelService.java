@@ -5,43 +5,46 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ramirez.safetravels.models.Travel;
+import com.ramirez.safetravels.repositories.TravelRepository;
+
 @Service
 public class TravelService {
-//	// adding the book repository as a dependency
-//    private final TravelRepository travelRepository;
-//    
-//    public BookService(BookRepository bookRepository) {
-//        this.bookRepository = bookRepository;
+	// adding the travel repository as a dependency
+    private final TravelRepository travelRepository;
+    
+    public TravelService(TravelRepository travelRepository) {
+        this.travelRepository = travelRepository;
+    }
+    // returns all the travels
+    public List<Travel> allTravels() {
+        return travelRepository.findAll();
+    }
+//    // creates a travel
+//    public Travel createTravel(Travel b) {
+//        return travelRepository.save(b);
 //    }
-//    // returns all the books
-//    public List<Book> allBooks() {
-//        return bookRepository.findAll();
-//    }
-//    // creates a book
-//    public Book createBook(Book b) {
-//        return bookRepository.save(b);
-//    }
-//    // retrieves a book
-//    public Book findBook(Long id) {
-//        Optional<Book> optionalBook = bookRepository.findById(id);
-//        if(optionalBook.isPresent()) {
-//            return optionalBook.get();
-//        } else {
-//            return null;
-//        }
-//    }
-//    // updates a book
-//    public Book updateBook(Long id, String title,String desc,String lang,int numOfPages) {
-//    	Book book = this.findBook(id);
-//    	book.setTitle(title);
-//    	book.setDescription(desc);
-//    	book.setLanguage(lang);
-//    	book.setNumberOfPages(numOfPages);
+    // retrieves a travel
+    public Travel findTravel(Long id) {
+        Optional<Travel> optionalTravel = travelRepository.findById(id);
+        if(optionalTravel.isPresent()) {
+            return optionalTravel.get();
+        } else {
+            return null;
+        }
+    }
+//    // updates a travel
+//    public Travel updateTravel(Long id, String expense,String description,String vendor,int amount) {
+//    	Travel travel = this.findTravel(id);
+//    	travel.setExpense(expense);
+//    	travel.setDescription(description);
+//    	travel.setVendor(vendor);
+//    	travel.setAmount(amount);
 //    	
-//    	return bookRepository.save(book);
+//    	return travelRepository.save(travel);
 //    }
-//    // deletes a book
-//    public void deleteBook(Long id) {
-//    	bookRepository.deleteById(id);
+//    // deletes a travel
+//    public void deleteTravel(Long id) {
+//    	travelRepository.deleteById(id);
 //    }
 }

@@ -72,8 +72,7 @@ public class TravelController {
 		}
 		//VALIDATIONS PASSED
 		travelService.createTravel(completedTravel);
-		return "redirect:/";
-			
+		return "redirect:/";	
 	}
 	
 	// ------ /CREATE -------- //
@@ -109,7 +108,7 @@ public class TravelController {
 	// ------- /UPDATE ------- //
 
 	// ------- DELETE ------- //
-	@DeleteMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public String delete(
 			@PathVariable("id") Long id
 			) {

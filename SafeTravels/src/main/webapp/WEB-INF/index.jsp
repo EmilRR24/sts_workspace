@@ -18,12 +18,20 @@
 				<th>Expense</th>
 				<th>Vendor</th>
 				<th>Amount</th>
+				<th>Action</th>
 			</tr>
 			<c:forEach var="travel" items="${travels}">
 			<tr>	
 		    	<td><c:out value="${travel.expense}"/></td>
 		    	<td><c:out value="${travel.vendor}"/></td>
 		    	<td>$<c:out value="${travel.amount}"/></td>
+		    	<td>
+		    		<a href="/edit/${travel.id}" style="color:blue;">Edit</a>
+		    		<form action="/delete/${travel.id}" method="POST">
+		    		<input type="hidden" name="_method" value="delete" />
+		    		<input type="submit" value="Delete">
+		    		</form>
+		    	</td>
 			</tr>
 			</c:forEach>
 		</table>

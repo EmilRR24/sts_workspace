@@ -107,7 +107,7 @@ public class TravelController {
 			return "redirect:/";
 	}
 	// ------- /UPDATE ------- //
-	
+
 	// ------- DELETE ------- //
 	@DeleteMapping("/delete/{id}")
 	public String delete(

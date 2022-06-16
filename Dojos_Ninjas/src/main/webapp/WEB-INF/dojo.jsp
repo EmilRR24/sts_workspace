@@ -17,13 +17,28 @@
 <body>
 	<div class="container">
 		<a href="/">Home</a>
-		<h1>Hello World!</h1>
-		<c:forEach var="ninja" items="${dojo.ninjas}">
-			<h4>
-				<c:out value="${ninja.fName}"/>
-				<c:out value="${ninja.lName}"/>
-			</h4>				
+		<h1><c:out value="${dojo.location}"/></h1>
+		<h3>All Ninjas Here:</h3>
+		<table class="table">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Age</th>
+			</tr>
+		<c:forEach var="ninja" items="${dojo.ninjas}">	
+			<tr>
+				<td>
+					<c:out value="${ninja.fName}"/>
+				</td>
+				<td>
+					<c:out value="${ninja.lName}"/>
+				</td>
+				<td>
+					<c:out value="${ninja.age}"/>
+				</td>
+			</tr>			
 		</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

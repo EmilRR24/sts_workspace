@@ -81,6 +81,15 @@ public class Dojo {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	public List<Ninja> getNinjas() {
+		return ninjas;
+	}
+
+	public void setNinjas(List<Ninja> ninjas) {
+		this.ninjas = ninjas;
+	}
+
 	//FOR CREATED_AT and UPDATED_AT
 	@PrePersist
     protected void onCreate(){

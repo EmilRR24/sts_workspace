@@ -20,10 +20,10 @@ public class TravelService {
     public List<Travel> allTravels() {
         return travelRepository.findAll();
     }
-//    // creates a travel
-//    public Travel createTravel(Travel b) {
-//        return travelRepository.save(b);
-//    }
+    // creates a travel
+    public Travel createTravel(Travel b) {
+        return travelRepository.save(b);
+    }
     // retrieves a travel
     public Travel findTravel(Long id) {
         Optional<Travel> optionalTravel = travelRepository.findById(id);
@@ -33,18 +33,12 @@ public class TravelService {
             return null;
         }
     }
-//    // updates a travel
-//    public Travel updateTravel(Long id, String expense,String description,String vendor,int amount) {
-//    	Travel travel = this.findTravel(id);
-//    	travel.setExpense(expense);
-//    	travel.setDescription(description);
-//    	travel.setVendor(vendor);
-//    	travel.setAmount(amount);
-//    	
-//    	return travelRepository.save(travel);
-//    }
-//    // deletes a travel
-//    public void deleteTravel(Long id) {
-//    	travelRepository.deleteById(id);
-//    }
+    // updates a travel
+    public Travel updateTravel(Travel updatedTravel) {
+    	return travelRepository.save(updatedTravel);
+    }
+    // deletes a travel
+    public void deleteTravel(Long id) {
+    	travelRepository.deleteById(id);
+    }
 }

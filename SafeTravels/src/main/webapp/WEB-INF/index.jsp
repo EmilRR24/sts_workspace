@@ -23,31 +23,32 @@
 			<tr>	
 		    	<td><c:out value="${travel.expense}"/></td>
 		    	<td><c:out value="${travel.vendor}"/></td>
-		    	<td><c:out value="${travel.amount}"/></td>
+		    	<td>$<c:out value="${travel.amount}"/></td>
 			</tr>
 			</c:forEach>
 		</table>
-		<form:form action="/travels" method="POST" modelAttribute="travel">
+		<h2>Add an Expense:</h2>
+		<form:form action="/new" method="POST" modelAttribute="travelObj">
     <p>
         <form:label path="expense">Expense Name:</form:label>
-        <form:errors path="expense"/>
         <form:input path="expense"/>
     </p>
+    <p style="color:red;"><form:errors path="expense"/></p>
     <p>
         <form:label path="description">Description:</form:label>
-        <form:errors path="description"/>
         <form:textarea path="description"/>
     </p>
+    <p style="color:red;"><form:errors path="description"/></p>
     <p>
-        <form:label path="vendor">Language:</form:label>
-        <form:errors path="vendor"/>
+        <form:label path="vendor">Vendor:</form:label>
         <form:input path="vendor"/>
     </p>
+    <p style="color:red;"><form:errors path="vendor"/></p>
     <p>
-        <form:label path="amount">Amount:</form:label>
-        <form:errors path="amount"/>     
+        <form:label path="amount">Amount:</form:label>    
         <form:input type="number" path="amount"/>
     </p>    
+    <p style="color:red;"><form:errors path="amount"/> </p>
     <input type="submit" value="Submit"/>
 </form:form>    
 	</div>

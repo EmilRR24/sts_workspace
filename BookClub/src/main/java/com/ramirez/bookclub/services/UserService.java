@@ -41,7 +41,7 @@ public class UserService {
     	String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
     	newUser.setPassword(hashed);
     	userRepo.save(newUser);
-        return null;
+        return newUser;
     }
     
     public User login(LoginUser newLogin, BindingResult result) {

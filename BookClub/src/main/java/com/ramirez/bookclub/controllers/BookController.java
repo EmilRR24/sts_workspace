@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.ramirez.bookclub.models.Book;
 import com.ramirez.bookclub.services.BookService;
 import com.ramirez.bookclub.services.UserService;
+import com.ramirez.safetravels.models.Travel;
 
 @Controller
 public class BookController {
@@ -48,12 +50,14 @@ public class BookController {
 	@GetMapping("/books/{id}")
 	public String getBook(
 			@PathVariable("id") Long id,
-			Model model
+			Model model,
+			HttpSession session
 			) {
 		// GRAB ONE BOOK FROM DB
 		Book oneBook = bookService.findBook(id);
 		// PASS THE BOOK TO JSP
 		model.addAttribute("book", oneBook);
+		
 		return "showBook.jsp";
 	}
 	// ----- /READ ----- //
@@ -88,5 +92,44 @@ public class BookController {
 	}
 	
 	// ------ /CREATE -------- //
+	
+	// ------ UPDATE -------- //
+	@GetMapping("/edit/{id}")
+	public String edit(
+			@PathVariable("id") Long id,
+			Model model
+			){
+		// Find one object from DB
+		Book editBook = bookService.findBook(id);
+		// Pass the travel object to jsp
+		model.addAttribute("bookObj", editBook);
+		
+		return "edit.jsp";
+	}
+	
+	@PutMapping("/edit/{id}")
+	public String update(
+			@Valid @ModelAttribute("bookObj") Book updatedBook,
+			BindingResult results
+			) {
+			// VALIDATIONS HAVE FAILED
+			if(results.hasErrors()) {
+				return "edit.jsp";
+			}
+			// VALIDATIONS HAVE PASSED
+			bookService.updateBook(updatedBook);
+			return "redirect:/books";
+	}
+	// ------- /UPDATE ------- //
+	
+	// ------- DELETE ------- //
+	@GetMapping("/delete/{id}")
+	public String delete(
+			@PathVariable("id") Long id
+			) {
+			bookService.deleteBook(id);
+			return "redirect:/books";
+	}
+	// ------- /DELETE ------- //
 	
 }

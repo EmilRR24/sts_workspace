@@ -24,7 +24,15 @@
 		</div>
 		<div>
 			<h3>
-				<c:out value="${book.user.name}"/> read <c:out value="${book.title}"/> by <c:out value="${book.author}"/>.
+				<c:choose>	
+				    <c:when test="${user_id == book.user.id}">
+						You
+	    			</c:when>
+				    <c:otherwise>
+				        <c:out value="${book.user.name}"/>
+				    </c:otherwise>
+				</c:choose>
+				read <c:out value="${book.title}"/> by <c:out value="${book.author}"/>.
 			</h3>
 		</div>
 		<div>
@@ -32,11 +40,16 @@
 				Here are <c:out value="${book.user.name}"/>'s thoughts: 	
 			</h3>
 		</div>
-		<div>
+		<div style="border-top:solid black 2px;border-bottom:solid black 2px;border-radius:5px;">
 			<h4>
 				<c:out value="${book.thoughts}"/> 
 			</h4>
 		</div>
+	    <c:if test="${user_id == book.user.id}">
+			<div style="margin-top:1em;">
+			<a href="/edit/${book.id}">Edit</a>
+			</div>
+    	</c:if>
 	</div>
 </body>
 </html>

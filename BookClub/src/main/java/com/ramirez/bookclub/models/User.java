@@ -1,9 +1,13 @@
 package com.ramirez.bookclub.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -18,9 +22,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty(message="Username is required!")
+    @NotEmpty(message="Name is required!")
     @Size(min=3, max=30, message="Username must be between 3 and 30 characters")
-    private String userName;
+    private String name;
     
     @NotEmpty(message="Email is required!")
     @Email(message="Please enter a valid email!")
@@ -35,17 +39,20 @@ public class User {
     @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
     private String confirm;
     
+    //RELATIONSHIPS
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Book> books;
     
     // EMPTY CONSTRUCTOR
     public User() {}
     
     public User(
-			@NotEmpty(message = "Username is required!") @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters") String userName,
+			@NotEmpty(message = "Name is required!") @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters") String name,
 			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
 			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password,
 			@NotEmpty(message = "Confirm Password is required!") @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters") String confirm) {
 		super();
-		this.userName = userName;
+		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.confirm = confirm;
@@ -61,21 +68,25 @@ public class User {
 		this.id = id;
 	}
 
-
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
 
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;

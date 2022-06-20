@@ -50,7 +50,8 @@ public class UserController {
         // TO-DO Later: Store their ID from the DB in session, 
         // in other words, log them in.
         session.setAttribute("user_id", user.getId());
-        return "redirect:/home";
+        session.setAttribute("name", user.getName());
+        return "redirect:/books";
     }
     
     @PostMapping("/login")
@@ -69,6 +70,16 @@ public class UserController {
         // TO-DO Later: Store their ID from the DB in session, 
         // in other words, log them in.
         session.setAttribute("user_id", user.getId());
-        return "redirect:/home";
+        session.setAttribute("name", user.getName());
+        return "redirect:/books";
     }
+    
+    @GetMapping("logout")
+    public String logout(
+    		HttpSession session
+    		){
+    	session.invalidate();
+    	return "redirect:/";
+    }
+    
 }

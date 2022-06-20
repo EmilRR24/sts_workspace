@@ -1,4 +1,4 @@
-package com.ramirez.dojosninjas.models;
+package com.ramirez.bookclub.models;
 
 import java.util.Date;
 
@@ -13,34 +13,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="ninja")
-public class Ninja {
+@Table(name="book")
+public class Book {
 	//MEMBER VARIABLES
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	//title
+	@NotNull
     @Size(min = 2, max = 200)
-    private String fName;
-    @NotNull
-    @Size(min = 1, max = 200)
-    private String lName;
-    @NotNull
-    @Min(0)
-    private Integer age;
-    
-    //RELATIONSHIPS
+    private String title;
+	//author
+	@NotNull
+    @Size(min = 2, max = 200)
+    private String author;
+	//thoughts
+	@NotNull
+    @Size(min = 2, max = 500)
+    private String thoughts;
+	  
+	//RELATIONSHIPS
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dojo_id")
-    private Dojo dojo;
-    
+    @JoinColumn(name="user_id")
+    private User user;
+	
     // This will not allow the createdAt column to be updated after creation
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -49,18 +51,17 @@ public class Ninja {
     private Date updatedAt;
     
     //CONSTRUCTORS
-    public Ninja() {
-    }
+    public Book() {}
 
-	public Ninja(@NotNull @Size(min = 5, max = 200) String fName, @NotNull @Size(min = 5, max = 200) String lName,
-			@NotNull @Min(0) Integer age) {
+	public Book(@NotNull @Size(min = 2, max = 200) String title, @NotNull @Size(min = 2, max = 200) String author,
+			@NotNull @Size(min = 2, max = 500) String thoughts) {
 		super();
-		this.fName = fName;
-		this.lName = lName;
-		this.age = age;
-	}  
-    //GETTERS / SETTERS/ OTHER METHODS
-
+		this.title = title;
+		this.author = author;
+		this.thoughts = thoughts;
+	}
+	
+    //GETTERS / SETTERS / OTHER METHODS
 	public Long getId() {
 		return id;
 	}
@@ -69,28 +70,36 @@ public class Ninja {
 		this.id = id;
 	}
 
-	public String getfName() {
-		return fName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getlName() {
-		return lName;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setlName(String lName) {
-		this.lName = lName;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
-	public Integer getAge() {
-		return age;
+	public String getThoughts() {
+		return thoughts;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setThoughts(String thoughts) {
+		this.thoughts = thoughts;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Date getCreatedAt() {
@@ -108,15 +117,6 @@ public class Ninja {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	public Dojo getDojo() {
-		return dojo;
-	}
-
-	public void setDojo(Dojo dojo) {
-		this.dojo = dojo;
-	}
-
 	//FOR CREATED_AT and UPDATED_AT
 	@PrePersist
     protected void onCreate(){
@@ -126,5 +126,4 @@ public class Ninja {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
-	
 }

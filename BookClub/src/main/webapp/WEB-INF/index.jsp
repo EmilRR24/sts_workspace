@@ -17,13 +17,15 @@
 <body>
 	<div class="container">
 		<div class="container">
+		<h1>Book Club</h1>
+		<h4>A place for friend to share thoughts on books.</h4>
 		<div>
 			<h1>Registration</h1>
 			<form:form action="/register" method="post" modelAttribute="newUser">
 				<p>
-					Username:
-					<form:input path="userName" />
-					<form:errors path="userName" />
+					Name:
+					<form:input path="name" />
+					<form:errors path="name" />
 				</p>
 				<p>
 					Email:

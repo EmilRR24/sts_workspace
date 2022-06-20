@@ -22,18 +22,25 @@
 			</h1>
 			<a href="/books" style="margin:auto;">back to the shelves</a>
 		</div>
-		<div>
-			<h3>
+		<div class="text-justify;" style="display:inline-flex;">
+			<h2 style="color:red;margin-right:.25em;">
 				<c:choose>	
 				    <c:when test="${user_id == book.user.id}">
-						You
+						You 
 	    			</c:when>
 				    <c:otherwise>
-				        <c:out value="${book.user.name}"/>
+				        <c:out value="${book.user.name} "/>
 				    </c:otherwise>
 				</c:choose>
-				read <c:out value="${book.title}"/> by <c:out value="${book.author}"/>.
-			</h3>
+			
+			</h2>
+			<h2>read</h2>
+			<h2 style="color:purple;margin:0 .25em">
+				<c:out value="${book.title}"/> 
+			</h2>
+			<h2 style="margin-right:.25em;">by </h2>
+			<h2 style="color:green;"> <c:out value="${book.author}"/> </h2>
+			<h2>.</h2>
 		</div>
 		<div>
 			<h3>

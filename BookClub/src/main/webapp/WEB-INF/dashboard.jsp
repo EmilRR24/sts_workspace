@@ -26,10 +26,10 @@
 			</div>
 			<table class="table table-striped">
 				<tr>
-					<td>ID</td>
-					<td>Title</td>
-					<td>Author Name</td>
-					<td>Posted By</td>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Author Name</th>
+					<th>Posted By</th>
 				</tr>
 				<c:forEach var="book" items="${books}">
 					<tr>

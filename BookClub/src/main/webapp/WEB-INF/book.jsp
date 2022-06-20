@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<div style="display:flex;">
-			<h1>Add A Book!</h1>	
+			<h1>Add A Book to Your Shelf!</h1>	
 			<a href="/books" style="margin:auto;">back to the shelves</a>
 		</div>
 		<form:form action="/book/new" method="POST" modelAttribute="bookObj" style="margin-bottom:1em;">

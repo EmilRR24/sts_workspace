@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.ramirez.bookclub.models.Book;
 import com.ramirez.bookclub.services.BookService;
 import com.ramirez.bookclub.services.UserService;
-import com.ramirez.safetravels.models.Travel;
 
 @Controller
 public class BookController {

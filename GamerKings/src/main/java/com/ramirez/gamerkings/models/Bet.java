@@ -1,7 +1,6 @@
 package com.ramirez.gamerkings.models;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,35 +9,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="gamers")
-public class Gamer {
+@Table(name="bets")
+public class Bet {
 	// MEMBER VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //STREAM
-    @NotEmpty(message="Stream is required!")
-    private String stream;
+    @NotEmpty(message="Amount Required!")
+    private Integer amount;
+    @NotEmpty(message="Selection Required!")
+    private String choice;
     
     //RELATIONSHIP
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private User user;
     
-    @OneToMany(mappedBy="gamer", fetch = FetchType.LAZY)
-    private List<Game> games;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="game_id")
+    private Game game;
     
     // This will not allow the createdAt column to be updated after creation
     @Column(updatable=false)
@@ -48,55 +44,64 @@ public class Gamer {
     private Date updatedAt;
     
     //CONSTRUCTORS
-    public Gamer() {}
-	public Gamer(@NotEmpty(message = "Stream is required!") String stream) {
+    public Bet() {}
+
+	public Bet(@NotEmpty(message = "Amount Required!") Integer amount) {
 		super();
-		this.stream = stream;
+		this.amount = amount;
 	}
-    //GETTERS /SETTERS / OTHER METHODS
+	
+	// GETTERS / SETTERS / OTHER METHODS
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getStream() {
-		return stream;
+
+	public Integer getAmount() {
+		return amount;
 	}
-	public void setStream(String stream) {
-		this.stream = stream;
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@PrePersist
-    protected void onCreate(){
-        this.createdAt = new Date();
-    }
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
-	public List<Game> getGames() {
-		return games;
+
+	public Game getGame() {
+		return game;
 	}
-	public void setGames(List<Game> games) {
-		this.games = games;
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
+
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
+
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+    
+
+	
 	
 }

@@ -1,4 +1,4 @@
-package com.ramirez.bookclub.services;
+package com.ramirez.gamerkings.services;
 
 import java.util.Optional;
 
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import com.ramirez.bookclub.models.LoginUser;
-import com.ramirez.bookclub.models.User;
-import com.ramirez.bookclub.repositories.UserRepository;
+import com.ramirez.gamerkings.models.LoginUser;
+import com.ramirez.gamerkings.models.User;
+import com.ramirez.gamerkings.repositories.UserRepository;
 
 @Service
 public class UserService {
@@ -17,7 +17,7 @@ public class UserService {
 	@Autowired
 	UserRepository userRepo;
 	
-    // TO-DO: Write register and login methods!
+	// TO-DO: Write register and login methods!
     public User register(User newUser, BindingResult result) {
     	// TO-DO - Reject values or register if no errors:
         
@@ -26,7 +26,14 @@ public class UserService {
     	
     	if(user.isPresent()) {
     		// USER EMAIL IS ALREADY TAKEN
-    		result.rejectValue("email", "Duplicate", "Email already taken");
+    		result.rejectValue("email", "Duplicate", "Email is already taken");
+    	}
+        // Reject if USER NAME is taken (present in database)
+    	Optional<User> userName = userRepo.findByUserName(newUser.getUserName());
+    	
+    	if(userName.isPresent()) {
+    		// USER EMAIL IS ALREADY TAKEN
+    		result.rejectValue("userName", "Duplicate", "User Name is already taken");
     	}
         // Reject if password doesn't match confirmation
     	if(!newUser.getPassword().equals(newUser.getConfirm())) {
@@ -83,4 +90,30 @@ public class UserService {
     		return false;
     	}
     }
+    // CHECK USER NAME IS UNIQUE
+    public boolean checkUserName(String userName) {
+    	Optional<User> user = userRepo.findByUserName(userName);
+    	
+    	if(user.isPresent()) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+	//RETRIEVES A USER
+	public User findUser(Long id) {
+		Optional<User> optionalUser = userRepo.findById(id);
+		if(optionalUser.isPresent()) {
+			return optionalUser.get();
+		} else {
+			return null;
+		}
+	}
+    
+	//UPDATES A USER
+	public User updateUser(User updatedUser) {
+		return userRepo.save(updatedUser);
+	}
 }

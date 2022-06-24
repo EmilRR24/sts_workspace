@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="container">
-		<div style="display:flex;">
+		<div style="display:flex;margin-bottom:2em;">
 			<h1>
 				<c:out value="${book.title}"/>
 			</h1>

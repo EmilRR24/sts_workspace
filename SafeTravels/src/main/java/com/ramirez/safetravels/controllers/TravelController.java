@@ -115,5 +115,16 @@ public class TravelController {
 			travelService.deleteTravel(id);
 			return "redirect:/";
 	}
+	
+	//FOR LINK NO FROM/BUTTON
+	//<a href="/users/${user.id}/delete">Delete</a>
+	
+//	@GetMapping("/users/{id}/delete")
+//	public String delete(
+//		@PathVariable("id") Long id
+//	) {
+//		userServ.deleteUser(id);
+//		return "redirect:/";
+//	}
 	// ------- /DELETE ------- //
 }

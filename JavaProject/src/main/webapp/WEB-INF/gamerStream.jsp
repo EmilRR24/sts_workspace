@@ -46,6 +46,25 @@
 			</div>
 			<div>
 				<img src="/img/stream.png" alt="stream" style="width:100%; margin:1em;" />
+				<div style="text-align:center;height:350px">
+					<h4>Game History</h4>
+					<table class="table table-striped" style="overflow-y:scroll;">
+						<tr>
+							<th>Game ID:</th>
+							<th>Game Name:</th>
+							<th>Game Result:</th>
+							<th>Completed At:</th>
+						</tr>
+						<c:forEach var="game" items="${historyGames}">
+							<tr>
+								<td><c:out value="${game.id}"/></td>
+								<td><c:out value="${game.name}"/></td>
+								<td><c:out value="${game.result}"/></td>
+								<td><c:out value="${game.updatedAt}"/></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>		
 		</div>
 	</div>

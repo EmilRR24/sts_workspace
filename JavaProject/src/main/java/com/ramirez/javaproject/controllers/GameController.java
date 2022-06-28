@@ -1,5 +1,6 @@
 package com.ramirez.javaproject.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -55,7 +56,12 @@ public class GameController {
 		List<Game> newGame = gameService.findNotUpdated();
 		model.addAttribute("games", newGame);
 		
-		System.out.println(newGame);
+		//CREATE OBJECT WITH ALL GAMES COMPLETED
+		List<Game> historyGames = gameService.findUpdated();
+
+		
+		
+		model.addAttribute("historyGames", historyGames);
 		
 		return "gamerStream.jsp";
 	}
@@ -79,7 +85,7 @@ public class GameController {
 			//STORE USER OBJ
 			newGame.setGamer(gamerService.findGamer(user_id));
 			
-			System.out.println(newGame);
+
 			//CREATE GAME
 			gameService.createGame(newGame);
 			

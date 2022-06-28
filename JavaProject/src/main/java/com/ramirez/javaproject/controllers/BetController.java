@@ -2,6 +2,7 @@ package com.ramirez.javaproject.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ramirez.javaproject.models.Bet;
+import com.ramirez.javaproject.models.Game;
 import com.ramirez.javaproject.services.BetService;
+import com.ramirez.javaproject.services.GameService;
 
 @Controller
 public class BetController {
 	//IMPORT SERVICES
 	@Autowired
 	private BetService betService;
+	@Autowired
+	private GameService gameService;
 	
 	// ------ CREATE -------- //
 	@GetMapping("/gamelist")
 	public String list(
-			@ModelAttribute("betObj") Bet emptyBet
+			Model model,
+			HttpSession session
 			) {
+		//CREATE OBJECT WITH GAMES THAT ARE NOT CLOSED
+		List<Game> newGame = gameService.findNotUpdated();
+		model.addAttribute("games", newGame);
+		
 		return "gameList.jsp";
 	}
 	

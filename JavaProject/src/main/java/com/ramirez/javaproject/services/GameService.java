@@ -29,9 +29,15 @@ public class GameService {
 			return null;
 		}
 	}
-	//RETRIEVE A GAME NOT UPDATED
+	//RETRIEVE ALL GAMES NOT UPDATED
 	public List<Game> findNotUpdated(){
 		return gameRepo.findByUpdatedAtIsNull();
+	}
+	
+
+	//RETRIEVE ALL GAMES ALREADY UPDATED
+	public List<Game> findUpdated(){
+		return gameRepo.findTop5ByUpdatedAtIsNotNullOrderByIdDesc();
 	}
 	
 	//CREATES A GAME

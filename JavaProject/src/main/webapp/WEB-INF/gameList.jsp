@@ -17,6 +17,13 @@
 <body>
 	<div class="container">
 		<h1>Games Being Played</h1>
+		<c:forEach var="game" items="${games}">
+		<div style="border:solid black 3px;">
+			<h1><c:out value="${game.name}"/></h1>
+			<a href="">PLACE BET</a>
+		</div>
+		
+		</c:forEach>
 	</div>
 </body>
 </html>

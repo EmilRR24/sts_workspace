@@ -1,6 +1,5 @@
 package com.ramirez.javaproject.repositories;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -12,5 +11,5 @@ import com.ramirez.javaproject.models.Game;
 public interface GameRepository extends CrudRepository<Game,Long>{
 	List<Game> findAll();
 	
-	List<Game> findByGameIsNotUpdated(Date updatedAt);
+	List<Game> findByUpdatedAtIsNull();
 }

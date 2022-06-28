@@ -12,23 +12,35 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<title>Streamer Page</title>
+<title></title>
 </head>
 <body>
 	<div class="container">
 		<div style="display:flex;justify-content:space-evenly;">
 			<div>
-				<h1> <c:out value="${newGame.name}"/> </h1>
-				<div style="display:flex;">
-					<a href="">START GAME</a>
-					<c:if test=""></c:if>
-					<a href="">WIN</a>
-					<p style="margin:0 .5em;">|</p>
-					<a href="">LOSE</a>
-				</div>
+				<c:if test="${empty games}">
+					<form action="/gamer/${user_id}" method="POST">
+						<h4>Game Name:</h4>
+						<input type="text" name="name"/>
+						<input type="hidden" value="started" name="result"/>
+						<input type="hidden" name="user_id" value="${user_id}"/>
+						<input style="margin-top:.5em" type="submit" value="Start Game"/>
+					</form>
+				</c:if>
+				<c:forEach var="game" items="${games}">
+					<h1> <c:out value="${game.name}"/> </h1>
+					<form action="/gamer/${game.gamer.id}" method="POST">
+						<input type="hidden" name="_method" value="PUT">
+						<input type="hidden" name="game_id" value="${game.id}">
+						<div style="display:flex;">					
+							<input type="submit" name="result"value="WIN" />
+							<p style="margin:0 .5em;">|</p>
+							<input type="submit" name="result" value="LOSE" />
+						</div>
+					</form>
+				</c:forEach>
 				<div>
 					<h4>Game Statistics</h4>
-					<p>Win Conditions</p>
 					<p># of Bets</p>
 				</div>		
 			</div>

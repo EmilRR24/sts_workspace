@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ramirez.javaproject.models.Game;
@@ -51,8 +52,10 @@ public class GameController {
 			HttpSession session
 			) {
 		//CREATE OBJECT WITH GAMES THAT ARE NOT CLOSED
-		List<Game> newGame = gameService.findNotUpdated(null);
-		model.addAttribute("game", newGame);
+		List<Game> newGame = gameService.findNotUpdated();
+		model.addAttribute("games", newGame);
+		
+		System.out.println(newGame);
 		
 		return "gamerStream.jsp";
 	}
@@ -85,5 +88,28 @@ public class GameController {
 	
 	}
 	// ----- /CREATE ----- //
+	
+	// ----- UPDATE ----- //
+	@PutMapping("/gamer/{id}")
+	public String completeGame(
+			@PathVariable("id") Long id,
+			@RequestParam("result") String result,
+			@RequestParam("game_id") Long game_id,
+			Model model,
+			HttpSession session
+			) {
+			//FIND GAME
+			Game updatedGame = gameService.findGame(game_id);
+			// UPDATE RESULT
+			updatedGame.setResult(result);
+			//SAVE GAME WITH UPDATE
+			gameService.updateGame(updatedGame);
+			
+			return "redirect:/gamer/" + id;
+	}
+	
+	
+	
+	// ----- /UPDATE ----- //
 	
 }

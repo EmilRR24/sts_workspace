@@ -1,6 +1,5 @@
 package com.ramirez.javaproject.services;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +30,8 @@ public class GameService {
 		}
 	}
 	//RETRIEVE A GAME NOT UPDATED
-	public List<Game> findNotUpdated(Date updatedAt){
-		return gameRepo.findByGameIsNotUpdated(updatedAt);
+	public List<Game> findNotUpdated(){
+		return gameRepo.findByUpdatedAtIsNull();
 	}
 	
 	//CREATES A GAME

@@ -28,7 +28,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //name
-    @NotEmpty(message="Stream is required!")
+    @NotEmpty(message="Name is required!")
     private String name;
     //result
     @NotEmpty(message="Result Required!")

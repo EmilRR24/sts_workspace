@@ -10,8 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,10 +26,13 @@ public class Bet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message="Amount Required!")
+    @NotNull(message="Must Have A Bet Amount!")
+    @Min(value=1, message="Bet Must be larger than 0!")
     private Integer amount;
     @NotEmpty(message="Selection Required!")
     private String choice;
+    
+    private String result;
     
     //RELATIONSHIP
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,11 +52,6 @@ public class Bet {
     
     //CONSTRUCTORS
     public Bet() {}
-
-	public Bet(@NotEmpty(message = "Amount Required!") Integer amount) {
-		super();
-		this.amount = amount;
-	}
 	
 	// GETTERS / SETTERS / OTHER METHODS
 
@@ -100,8 +102,32 @@ public class Bet {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-    
 
+	public String getChoice() {
+		return choice;
+	}
+
+	public void setChoice(String choice) {
+		this.choice = choice;
+	}
+    
+	//FOR CREATED_AT and UPDATED_AT
+	@PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 	
 	
 }

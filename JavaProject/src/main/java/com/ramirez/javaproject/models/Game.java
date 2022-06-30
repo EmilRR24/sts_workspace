@@ -33,6 +33,8 @@ public class Game {
     //result
     @NotEmpty(message="Result Required!")
     private String result;
+    //completed
+    private String completed;
     
     //RELATIONSHIP
     @ManyToOne(fetch = FetchType.LAZY)
@@ -130,5 +132,13 @@ public class Game {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+
+	public String getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(String completed) {
+		this.completed = completed;
+	}
     
 }

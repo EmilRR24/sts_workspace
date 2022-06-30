@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ramirez.javaproject.models.Game;
+import com.ramirez.javaproject.models.Gamer;
 import com.ramirez.javaproject.repositories.GameRepository;
 
 @Service
@@ -29,9 +30,19 @@ public class GameService {
 			return null;
 		}
 	}
-	//RETRIEVE ALL GAMES NOT UPDATED
-	public List<Game> findNotUpdated(){
-		return gameRepo.findByUpdatedAtIsNull();
+	//RETRIEVE ALL GAMES NOT COMPLETED AND IS UPDATED
+	public List<Game> findNotCompleted(){
+		return gameRepo.findByCompletedIsNull();
+	}
+	
+	//RETRIEVE ALL GAMES NOT COMPLETED
+	public List<Game> findNotCompletedAndUpdated(){
+		return gameRepo.findByCompletedIsNullAndUpdatedAtIsNotNull();
+	}
+	
+	//RETRIEVE GAME NOT UPDATED
+	public Game findNotUpdated(Gamer gamer){
+		return gameRepo.findByUpdatedAtIsNullAndGamer(gamer);
 	}
 	
 

@@ -15,6 +15,18 @@
 <title>Account Page</title>
 </head>
 <body>
+	<div style="padding:1% 20%;display:flex;align-items:center; justify-content:space-between; background-color:#71D514">
+		<a href="/" style="width:217px">
+			<img src="/img/Gamer Kings-logos_transparent.png" alt="logo" style="width:100%;"/>
+		</a>
+		<div style="display:flex">
+			<a href="/account/${user_id}" style="color:black">Account</a>
+			<c:if test="${not empty user_id}">			
+			<p style="margin:0 1em;">|</p>
+			<a href="/logout" style="color:black">Logout</a>
+			</c:if>
+		</div>
+	</div>
 	<div class="container">
 		<div>
 			<h1>Welcome, <c:out value="${userObj.userName}"/> !</h1>
@@ -42,54 +54,92 @@
 					</form>
 				</div>
 				<div>
-					<h3>Start A Game!</h3>
-					<form action="/gamer/${userObj.id}" method="POST">
-						<h4>Game Name:</h4>
-						<input type="text" name="name"/>
-						<input type="hidden" value="started" name="result"/>
-						<input type="hidden" name="user_id" value="${userObj.id}"/>
-						<input type="submit" value="Start Game"/>
-					</form>
+					<c:if test="${empty existingGame}">
+						<h3>Start A Game!</h3>
+						<form action="/gamer/${userObj.id}" method="POST">
+							<h4>Game Name:</h4>
+							<input type="text" name="name"/>
+							<input type="hidden" value="started" name="result"/>
+							<input type="hidden" name="user_id" value="${userObj.id}"/>
+							<input type="submit" value="Start Game"/>
+						</form>
+					</c:if>
+					<c:if test="${not empty existingGame}">
+						<a href="/gamer/${userObj.gamer.id}" style="font-weight:bold;">Continue Game</a>
+					</c:if>
 				</div>
 			</div>
 			</c:if>
 		</div>
-		<form method="POST" action="/account/${user_id}" ">
-			<input type="hidden" name="_method" value="PUT">
-			<p>
-				First Name:
-				<input type="text" name="firstName" value="<c:out value="${userObj.firstName}"/>" />
-			</p>			
-			<p>
-				Last Name:
-			<input type="text" name="lastName" value="<c:out value="${userObj.lastName}"/> "/>
-			</p>
-			<p>
-				User Name:
-				<input type="text" name="userName" value="<c:out value="${userObj.userName}"/> " />
-			</p>
-
-			<input type="submit" value="Update"/>
-		</form>
+		<button style="border:none; margin:1em" onclick="updateToggle()">Update User</button>
+		<div id="updateHide" style="margin:1em; display:none;">
+			<form method="POST" action="/account/${user_id}" ">
+				<input type="hidden" name="_method" value="PUT">
+				<p>
+					First Name:
+					<input type="text" name="firstName" value="<c:out value="${userObj.firstName}"/>" />
+				</p>			
+				<p>
+					Last Name:
+				<input type="text" name="lastName" value="<c:out value="${userObj.lastName}"/> "/>
+				</p>
+				<p>
+					User Name:
+					<input type="text" name="userName" value="<c:out value="${userObj.userName}"/> " />
+				</p>
+	
+				<input type="submit" value="Update"/>
+			</form>
+		</div>
 		<div style="display:flex;justify-content: space-between;">
 			<div>
 				<a href="/gamelist">PLACE A BET</a>
-				<h2>Active Bets</h2>
-				<table class="table table-striped">
-					<tr>
-						<td>
-						
-						</td>
-					</tr>
-				</table>
+				<div style="display:flex;">
+					<div style="margin:1em">
+						<h2>Active Bets</h2>
+						<table class="table table-striped">
+							<tr>
+								<td>
+								
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div style="margin:1em">
+						<h2>Bet History</h2>
+						<table class="table table-striped">
+							<tr>
+								<td>
+								
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</div>
 			<div>	
-				<div style="display:flex;justify-content:space-evenly;">
-					<a href="">ADD POINTS</a>
-					<p style="margin:0 .5em;"> | </p>
-					<a href="">SPEND POINTS</a>
+				<div style="display:flex;justify-content:space-evenly;margin-bottom:1em;">
+					<button onclick="addToggle()" style="border:none;">ADD POINTS</button>
+					<p style="margin:0 .5em; font-weight:bold;"> | </p>
+					<button onclick="spendToggle()" style="border:none;">SPEND POINTS</button>
 				</div>		
-				<h2>Total Points: <c:out value="${userObj.total}"/></h2>
+					<div id="addHide" style="display:none; text-align:center; border:solid black 2px;padding:.5em;">
+						<form action="/account/${user_id}/add" method="POST">
+							<input type="hidden" name="_method" value="PUT">
+							<h4>Add Points Amount:</h4>
+							<input type="num" name="total" />
+							<input type="submit" value="Submit" />
+						</form>
+					</div>
+					<div id="spendHide" style="display:none; text-align:center;border:solid black 2px;padding:.5em;">
+						<form action="/account/${user_id}/spend" method="POST">
+							<input type="hidden" name="_method" value="PUT">
+							<h4>Spend Points Amount:</h4>
+							<input type="num" name="total" />
+							<input type="submit" value="Submit" />
+						</form>
+					</div>
+				<h2 style="margin-top:1em;">Total Points: <c:out value="${userObj.total}"/></h2>
 				<table class="table table-striped">
 					<tr>
 						<th>
@@ -106,5 +156,6 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>

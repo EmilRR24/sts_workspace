@@ -15,14 +15,26 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div style="padding:1% 20%;display:flex;align-items:center; justify-content:space-between; background-color:#71D514">
+		<a href="/" style="width:217px">
+			<img src="/img/Gamer Kings-logos_transparent.png" alt="logo" style="width:100%;"/>
+		</a>
+		<div style="display:flex">
+			<a href="/account/${user_id}" style="color:black">Account</a>
+			<c:if test="${not empty user_id}">			
+			<p style="margin:0 1em;">|</p>
+			<a href="/logout" style="color:black">Logout</a>
+			</c:if>
+		</div>
+	</div>
 	<div class="container">
 		<h1>Games Being Played</h1>
 		<c:forEach var="game" items="${games}">
-		<div style="border:solid black 3px;">
+		<div style="border:solid black 3px;padding:.5em;">
 			<h1><c:out value="${game.name}"/></h1>
-			<a href="">PLACE BET</a>
+			<p>GAMER: <c:out value="${game.gamer.user.userName}"/></p>
+			<a href="bet/new/${game.id}">PLACE BET</a>
 		</div>
-		
 		</c:forEach>
 	</div>
 </body>

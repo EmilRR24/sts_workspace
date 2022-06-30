@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ramirez.javaproject.models.Game;
+import com.ramirez.javaproject.models.Gamer;
 import com.ramirez.javaproject.models.LoginUser;
 import com.ramirez.javaproject.models.User;
+import com.ramirez.javaproject.services.GameService;
 import com.ramirez.javaproject.services.UserService;
 
 @Controller
@@ -23,6 +26,8 @@ public class UserController {
 	// DEPENDENCY INJECT
 	@Autowired
 	UserService userService;
+	@Autowired
+	GameService gameService;
 	
 	@GetMapping("/")
     public String index(Model model) {
@@ -97,6 +102,13 @@ public class UserController {
 		User editUser = userService.findUser(id);
 		// Pass the travel object to jsp
 		model.addAttribute("userObj", editUser);
+		//FIND GAMER ID
+		Gamer gamer = editUser.getGamer();
+		// FIND EXISTING GAME
+		Game existing = gameService.findNotUpdated(gamer);
+		// PASS EXISTING GAME
+		model.addAttribute("existingGame", existing);
+		System.out.println(existing);
 		return "account.jsp";
 	}
 	@PutMapping("/account/{id}")
@@ -112,6 +124,43 @@ public class UserController {
 		editUser.setFirstName(firstName);
 		editUser.setLastName(lastName);
 		editUser.setUserName(userName);
+		editUser.setConfirm(editUser.getPassword());
+		
+		// VALIDATIONS HAVE FAILED
+
+		
+		// VALIDATIONS HAVE PASSED
+		userService.updateUser(editUser);
+		return "redirect:/account/"+editUser.getId();
+	}
+	
+	@PutMapping("/account/{id}/add")
+	public String updateTotal(
+			HttpSession session,
+			@PathVariable("id") Long id,
+			@RequestParam(value="total") int total
+			) {
+		User editUser = userService.findUser(id);
+		int currentTotal = editUser.getTotal();
+		editUser.setTotal(currentTotal + total);
+		editUser.setConfirm(editUser.getPassword());
+		
+		// VALIDATIONS HAVE FAILED
+
+		
+		// VALIDATIONS HAVE PASSED
+		userService.updateUser(editUser);
+		return "redirect:/account/"+editUser.getId();
+	}
+	@PutMapping("/account/{id}/spend")
+	public String spendTotal(
+			HttpSession session,
+			@PathVariable("id") Long id,
+			@RequestParam(value="total") int total
+			) {
+		User editUser = userService.findUser(id);
+		int currentTotal = editUser.getTotal();
+		editUser.setTotal(currentTotal-total);
 		editUser.setConfirm(editUser.getPassword());
 		
 		// VALIDATIONS HAVE FAILED

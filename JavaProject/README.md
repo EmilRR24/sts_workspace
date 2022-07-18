@@ -1,5 +1,5 @@
 # Gamer Online
-A web application that lets users host bets for active live stream games of the Gamer, built using Java. JavaServer Pages is used to create dynamic web applications and SQL database for the retrieval and management of data.
+A web application that lets users host bets for active live stream games of the Gamer, built using Java Spring. JavaServer Pages is used to create dynamic web applications and SQL database for the retrieval and management of data.
 ## Features
 - Login and Registration with validations
 - Implemented javascript with CSS to create an immersive and interactive user experience 
